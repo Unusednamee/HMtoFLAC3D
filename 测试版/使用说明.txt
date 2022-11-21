@@ -1,0 +1,22 @@
+HMtoFLAC3D 测试版
+
+使用方法
+1.找到hypermesh安装目录，将userpage.mac文件复制到%hm\bin\win64文件夹下，选择替换目标文件。
+2.将HMtoFLAC3D.tcl文件复制到%\hm\scripts文件夹下。
+3.打开hypermesh，在上方菜单栏中选择Preferences - Menu Config（或键盘输入"O"，选择Menu Config），在macro file 一栏中选择刚才复制的userpage.mac文件，点击 retrieve...
+4.重新启动hypermesh或更改求解器类型。
+5.在右侧选项卡中选择Utility->User，即出现"ToFLAC3D"按钮，单击即可完成FLAC3D网格文件的导出。
+
+关于本程序
+1.本转换程序目前只支持以下单元类型的转换：
+	 	hypermesh      ->	FLAC3D
+  六面体单元	    hex8	       ->	  brick
+  三棱柱单元	   penta6	       ->	 wedge
+  四面体单元	    tetra4	       ->	tetrahedron
+
+  后续可能会增加更多单元类型。
+2.在进行转换之前，无需对单元赋予 matarial 和 properity 属性。
+3.导出数据在 FLAC3D 中单元分组与 hypermesh 中 components 分组相同，FLAC3D 中 GROUP 名称即 hypermesh 中 component 的名称。
+4.本程序尚未完善，请等待正式版。
+
+作者 ：王殊 西南交大交通隧道工程教育部重点实验室

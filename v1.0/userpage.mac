@@ -1,0 +1,48 @@
+// HWVERSION_2019.0.0.70_Apr 15 2019_22:18:53
+/////////////////////////////////////////////////////////////////////////////// 
+// Filename: userpage.mac
+// Purpose:  Macro menu 'User' page definitions.
+// Version:  HyperWorks
+// Altair Copyright:
+/////////////////////////////////////////////////////////////////////////////// 
+ 
+//	User Page Widget Definitions
+//
+//	Note: Since relative row locations are used, the menu page is built from
+//		  the bottom up.
+//
+
+//	The following templex test is used to see if the Tcl support buttons
+//  should be added.
+
+{ if ( getenv("HM_DEBUG") == "ON" ) }
+
+	*createbutton(5, "TkCon ...",   -1, 0, 10, BUTTON, "Launch the Tk Console.", EvalTcl, "tkcon.tcl")
+	*createbutton(5, "GUI Toolkit ...", -1, 0, 10, BUTTON, "Launch the GUI Toolkit.", LaunchWidgetTour)
+	*createbutton(5, "ProDebug", 0, 0, 10, BUTTON, "Connect to the TclPro debugger.", ConnectToDebugger)
+
+{ endif }
+
+
+//	User Page Macro Definitions
+
+///////////////////////////////////////////////////////////////////////////////
+*beginmacro("ConnectToDebugger")
+	//  Purpose:	To connect to a remotely running ProDebug session.
+	// 
+	//  Note:  		The pathname to the 'prodebug.tcl' script may need to be 
+	//				modified to	reflect your installation of TclPro.
+
+	*evaltclstring("source /Program\ Files/tclPro1.4/win32-ix86/bin/prodebug.tcl; debugger_init;",0)
+*endmacro()
+
+///////////////////////////////////////////////////////////////////////////////
+*beginmacro("LaunchWidgetTour")
+	//  Purpose:	Launch the HyperWorks Widget Tour dialog.
+
+ 	*evaltclstring("::hwt::WidgetTour",0)
+*endmacro()
+
+*createbutton(5, "ToFLAC3D",   -1, 0, 10, BUTTON, "transfer the file to FLAC3D format", EvalTcl, "HMtoFLAC3D.tcl")
+
+

@@ -64,24 +64,32 @@ if {$filename != ""} {
 	} 
 
 	puts $td "*GRPOUPS"
-	*createmark comps 1 "all"
-	set comps_list [hm_getmark comps 1]
-	foreach comps $comps_list {
-		set comp_name [hm_getvalue comps id=$comps dataname=name]
-		puts $td "ZGROUP '$comp_name' SLOT 1"
-		set zone_list [hm_getvalue comps id=$comps dataname=elements]
-		set endlmark 1
-		foreach zone_ $zone_list {
-			if {$endlmark == 10} {
-				puts $td $zone_
-				set endlmark 1
-			} else {
-				puts -nonewline $td $zone_
-				puts -nonewline $td " "
-				set endlmark [expr $endlmark + 1]
+		foreach comps $comps_list {
+			set zone_list [hm_getvalue comps name=$comps dataname=elements]
+			if {$zone_list eq ""} {
+				continue
 			}
-		}
-	} 
+			
+			puts $td "ZGROUP '$comps'"
+			
+			set endlmark 1
+			foreach zone_ $zone_list {
+				set con [hm_getvalue elems id=$zone_ dataname=config]
+				if {$con != 208 && $con != 206 && $con != 204} {
+					continue
+				}
+				if {$endlmark == 10} {
+					puts $td $zone_
+					set endlmark 1
+				} else {
+					puts -nonewline $td "$zone_ "
+					set endlmark [expr $endlmark + 1]
+				}
+			}
+			if {$endlmark != 1} {
+				puts $td " "
+			}
+		} 
 
 	close $td
 	
